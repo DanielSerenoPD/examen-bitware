@@ -1,0 +1,24 @@
+SELECT pro.nombre , COUNT(vent.producto) as total_ventas from "Examen"."Productos" pro 
+LEFT JOIN "Examen"."Venta" vent on pro.producto = vent.producto
+GROUP BY pro.nombre, vent.producto ORDER BY vent.producto DESC;
+
+SELECT caj."nomApels", pro.nombre, pro.precio, mr.piso
+FROM "Examen"."Cajeros" caj JOIN "Examen"."Venta" vta ON caj.cajero = vta.cajero
+JOIN "Examen"."MaquinasRegistradoras" mr ON mr.maquina = vta.maquina
+JOIN "Examen"."Productos" pro ON pro.producto = vta.producto 
+GROUP BY caj."nomApels", pro.nombre, pro.precio, mr.piso;
+
+SELECT mr.piso, Count(piso) as ventas_totales 
+from "Examen"."MaquinasRegistradoras" mr Join "Examen"."Venta" vta ON mr.maquina = vta.maquina
+GROUP BY piso;
+
+SELECT caj.cajero, caj."nomApels" as nombre_completo, SUM(pro.precio) as total_ventas 
+FROM "Examen"."Cajeros" caj JOIN "Examen"."Venta" vta ON caj.cajero = vta.cajero
+JOIN "Examen"."Productos" pro ON pro.producto = vta.producto
+GROUP BY caj.cajero, caj."nomApels";
+
+
+SELECT * From (SELECT caj.cajero, caj."nomApels" as nombre_completo, SUM(pro.precio) as total_ventas 
+FROM "Examen"."Cajeros" caj JOIN "Examen"."Venta" vta ON caj.cajero = vta.cajero
+JOIN "Examen"."Productos" pro ON pro.producto = vta.producto
+GROUP BY caj.cajero, caj."nomApels") a where a.total_ventas<'$5000'
