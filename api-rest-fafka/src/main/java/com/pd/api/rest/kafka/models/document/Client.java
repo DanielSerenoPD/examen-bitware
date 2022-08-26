@@ -1,66 +1,69 @@
 package com.pd.api.rest.kafka.models.document;
+import java.time.Instant;
 import java.util.Date;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Document(collection = "clients")
 public class Client {
 	 @Id
-	 @Field("Client_Id")
-	 private Integer clientId;
-	 @Field("User_Name")
+	 @JsonProperty("Usuario_ID")
+	 private String clientId;
+	 @JsonProperty("Nombre_Usuario")
 	 private String userName;
-	 @Field("Password")
+	 @JsonProperty("Contraseña")
 	 private String password;
-	 @Field("Name")
+	 @JsonProperty("Nombre")
 	 private String name;
-	 @Field("Last_Name")
+	 @JsonProperty("Apellidos")
 	 private String lastName;
-	 @Field("Email")
+	 @JsonProperty("Correo_Electronico")
 	 private String email;
-	 @Field("Age")
+	 @JsonProperty("Edad")
 	 private Integer age;
-	 @Field("Height")
+	 @JsonProperty("Altura")
 	 private Float height;
-	 @Field("Weight")
+	 @JsonProperty("Peso")
 	 private Float weight;
-	 @Field("IMC")
+	 @JsonProperty("IMC")
 	 private Float imc;
-	 @Field("GEB")
+	 @JsonProperty("GEB")
 	 private Float geb;
-	 @Field("ETA")
+	 @JsonProperty("ETA")
 	 private Float eta;
-	 @Field("Created_At")
-	 private Date createdAt;
-	 @Field("Updated_At")
-	 private Date updatedAt;
+	 @JsonProperty("Fecha_Creacion")
+	 @CreatedDate
+	 private Date createdAt = new Date();
+	 @JsonProperty("Fecha_Actualizacion")
+	 @LastModifiedDate
+	 private Date updatedAt = new Date();
 	 
 	 
 	public Client() {} 
-	public Client(Integer clientId, String userName, String password, String name, String lastName, String email,
-			Integer age, Float height, Float weight, Float imc, Float geb, Float eta, Date createdAt, Date updatedAt) {
-		this.clientId = clientId;
-		this.userName = userName;
-		this.password = password;
-		this.name = name;
-		this.lastName = lastName;
-		this.email = email;
-		this.age = age;
-		this.height = height;
-		this.weight = weight;
-		this.imc = imc;
-		this.geb = geb;
-		this.eta = eta;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
+	public Client(String Cliente_ID, String Nombre_Usuario, String Contraseña, String Nombre, String Apellidos, String Correo_Electronico,
+			Integer Edad, Float Altura, Float Peso, Float IMC, Float GEB, Float ETA) {
+		this.clientId = Cliente_ID;
+		this.userName = Nombre_Usuario;
+		this.password = Contraseña;
+		this.name = Nombre;
+		this.lastName = Apellidos;
+		this.email = Correo_Electronico;
+		this.age = Edad;
+		this.height = Altura;
+		this.weight = Peso;
+		this.imc = IMC;
+		this.geb = GEB;
+		this.eta = ETA;
 	}
-	public Integer getClientId() {
+	public String getClientId() {
 		return clientId;
-	}
-	public void setClientId(Integer clientId) {
-		this.clientId = clientId;
 	}
 	public String getUserName() {
 		return userName;
@@ -131,17 +134,16 @@ public class Client {
 	public Date getCreatedAt() {
 		return createdAt;
 	}
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
+	@Override
+	public String toString() {
+		return "Client [Cliente_ID=" + clientId + ", Nombre_Usuario=" + userName + ", Contraseña=" + password
+				+ ", Nombre=" + name + ", Apellidos=" + lastName + ", Correo_Electronico=" + email
+				+ ", Edad=" + age + ", Altura=" + height + ", Peso=" + weight + ", IMC=" + imc + ", GEB=" + geb
+				+ ", ETA=" + eta + ", Fecha_Creacion=" + createdAt + ", Fecha_Actualizacion=" + updatedAt
+				+ "]";
 	}
-	 
-	 
-	 
 	
 }
